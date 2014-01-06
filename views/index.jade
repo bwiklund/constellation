@@ -4,6 +4,10 @@ html
     != css('style')
     != js('client')
   body
-    .item
-      .label 07
-      .detail This is a webzone on the interweb
+    header
+      h1 Constellation
+      h2 Code search tool
+    main
+      - if(query)
+        .results
+          h3 Search results for: #{query}
