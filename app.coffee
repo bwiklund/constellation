@@ -34,6 +34,7 @@ app.configure ->
   app.use require('connect-assets')()
   app.set 'views', __dirname + '/views'
   app.set 'view engine', 'jade'
+  app.use '/public', express.static __dirname + '/public'
 
 app.get "/", (i,o) ->
   o.render 'index'
