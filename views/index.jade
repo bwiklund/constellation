@@ -3,18 +3,20 @@ html
     title fmjs
     != css('style')
     != js('client')
-  body
+  body.page-search
     header
       h1 Constellation
       h2 Code search tool
     main
+      form
+        input(name="")
       if(results)
         .results
-          h3 Search results for: #{results}
-          ul
+          h1 Search results for: #{query}
+          ul.results
             for result in results.body.hits.hits
-              li
-                h3= result.fields.contents.path
+              li.result
+                h2= result.fields.contents.path
                 for snippet in result.highlight.contents
-                  p!= snippet
+                  p!= sanitizeHtml( snippet, {allowedTags: ['em']} )
 

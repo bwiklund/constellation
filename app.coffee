@@ -1,10 +1,14 @@
 express = require 'express'
 elasticsearch = require 'elasticsearch'
+sanitizeHtml = require 'sanitize-html'
 
 client = elasticsearch.Client()
 
 app = express()
 
+app.use (i,o,next) ->
+  o.locals {sanitizeHtml}
+  next()
 
 search = (query) ->
   client.search
@@ -35,9 +39,10 @@ app.get "/", (i,o) ->
   o.render 'index'
 
 app.get "/search/:query?", (i,o) ->
-  search(i.params.query)
+  query = i.params.query
+  search(query)
   .then (results) ->
-    o.render 'index', {results}
+    o.render 'index', {results,query}
   , (err) ->
     o.send err
 

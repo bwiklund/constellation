@@ -11,7 +11,8 @@
     "coffee-script": "~1.6.3",
     "async": "~0.2.9",
     "elasticsearch": "~1.0.3",
-    "walk": "~2.2.1"
+    "walk": "~2.2.1",
+    "sanitize-html": "~1.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
