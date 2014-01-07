@@ -8,6 +8,13 @@ html
       h1 Constellation
       h2 Code search tool
     main
-      - if(query)
+      if(results)
         .results
-          h3 Search results for: #{query}
+          h3 Search results for: #{results}
+          ul
+            for result in results.body.hits.hits
+              li
+                h3= result.fields.contents.path
+                for snippet in result.highlight.contents
+                  p!= snippet
+

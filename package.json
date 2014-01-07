@@ -8,7 +8,10 @@
     "jade": "~0.31.2",
     "stylus": "~0.32.1",
     "connect-assets": "~2.4.3",
-    "coffee-script": "~1.6.3"
+    "coffee-script": "~1.6.3",
+    "async": "~0.2.9",
+    "elasticsearch": "~1.0.3",
+    "walk": "~2.2.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
