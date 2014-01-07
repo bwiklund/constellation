@@ -5,11 +5,12 @@ html
     != css('style')
     != js('client')
   body.page-search.constellation
-    header
+    header: .inner
       h1 Constellation
       h2 Search the code of 7493 open source projects
       form.search-form
         input.search-field(placeholder="Search code...",name="search",value=query)
+     
     main
       if(results)
         .results
