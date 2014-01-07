@@ -7,7 +7,9 @@ client = elasticsearch.Client()
 app = express()
 
 app.use (i,o,next) ->
-  o.locals {sanitizeHtml}
+  pathToDir =      (path) -> path.split('/')[...-1].join('/')
+  pathToFilename = (path) -> path.split('/')[-1..][0]
+  o.locals {sanitizeHtml,pathToDir,pathToFilename}
   next()
 
 search = (query) ->
