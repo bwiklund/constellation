@@ -3,23 +3,39 @@ html
     title Constellation | Code search engine
     meta(name="viewport",content="width=device-width")
     != css('style')
+    script(src="/public/vendor/angular.min.js")
+    script(src="/public/vendor/underscore-min.js")
     != js('client')
-  body.page-search.constellation
+  body.page-search.constellation(ng-app="constellation",ng-controller="MainCtrl")
     header: .inner
       h1 Constellation
       h2 Search the code of 7493 open source projects
       form.search-form
-        input.search-field(placeholder="Search code...",name="search",value=query)
+        input.search-field(placeholder="Search code...",ng-model="query",name="q")
      
     main
       if(results)
         .results
-          h1 #{results.body.hits.hits.length} of #{results.body.hits.total} results for <b>#{query}</b>
-          ul
-            for result in results.body.hits.hits
-              li.result
-                h2.filename: a(href="#")= pathToFilename( result.fields.contents.path )
-                a.directory= pathToDir( result.fields.contents.path )
-                for snippet in result.highlight.contents
-                  p!= sanitizeHtml( snippet, {allowedTags: ['em']} )
+
+          //- for initial page load
+          div(ng-if="!results")
+            h1 #{results.body.hits.hits.length} of #{results.body.hits.total} results for <b>#{query}</b>
+            ul
+              for result in results.body.hits.hits
+                li.result
+                  h2.filename: a(href="#")= pathToFilename( result.fields.contents.path )
+                  a.directory= pathToDir( result.fields.contents.path )
+                  for snippet in result.highlight.contents
+                    p!= sanitizeHtml( snippet, {allowedTags: ['em']} )
+
+          //- for live search
+          div(ng-if="results")
+            h1 {{results.body.hits.hits.length}} of {{results.body.hits.total}} results for <b>{{query}}</b>
+            ul
+              li.result(ng-repeat="result in results.body.hits.hits")
+                h2.filename: a(href="#") {{result.fields.contents.path}}
+                //- h2.filename: a(href="#")= pathToFilename( result.fields.contents.path )
+                //- a.directory= pathToDir( result.fields.contents.path )
+                //- for snippet in result.highlight.contents
+                //-   p!= sanitizeHtml( snippet, {allowedTags: ['em']} )
 

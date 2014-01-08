@@ -39,18 +39,15 @@ app.configure ->
   app.use '/public', express.static __dirname + '/public'
 
 app.get "/", (i,o) ->
-  o.render 'index'
-
-app.get "/search/:query?", (i,o) ->
-  query = i.params.query
+  query = i.query.q
   search(query)
   .then (results) ->
     o.render 'index', {results,query}
   , (err) ->
     o.send err
 
-app.get "/test/:query", (i,o) ->
-  search(i.params.query)
+app.get "/json", (i,o) ->
+  search(i.query.q)
   .then (results) ->
     o.send results
   , (err) ->
