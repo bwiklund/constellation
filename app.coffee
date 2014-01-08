@@ -12,6 +12,9 @@ app.use (i,o,next) ->
   o.locals {sanitizeHtml,pathToDir,pathToFilename}
   next()
 
+health = null # TODO: cache this properly instead of being dumb
+client.cluster.health (err,resp) -> health = resp
+
 search = (query) ->
   client.search
     index: 'constellation'
@@ -39,10 +42,11 @@ app.configure ->
   app.use '/public', express.static __dirname + '/public'
 
 app.get "/", (i,o) ->
+
   query = i.query.q
   search(query)
   .then (results) ->
-    o.render 'index', {results,query}
+    o.render 'index', {results,query,health}
   , (err) ->
     o.send err
 

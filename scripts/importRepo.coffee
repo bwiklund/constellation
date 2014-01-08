@@ -20,7 +20,7 @@ addFile = (file,cb) ->
 #   process.exit()
 
 
-walker = walk.walk './node_modules',
+walker = walk.walk './repos/node_modules',
   followLinks: false
   #filters: ['foo','bar']
 

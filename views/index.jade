@@ -36,6 +36,4 @@ html
                 h2.filename: a(href="#") {{result.fields.contents.path}}
                 //- h2.filename: a(href="#")= pathToFilename( result.fields.contents.path )
                 //- a.directory= pathToDir( result.fields.contents.path )
-                //- for snippet in result.highlight.contents
-                //-   p!= sanitizeHtml( snippet, {allowedTags: ['em']} )
-
+                p(ng-repeat="snippet in result.highlight.contents") {{snippet}}
